@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+<title>
+IPアドレス割り当て検索プログラム
+</title>
+
+    </head>
+    <body>
+IPを入力してください。（IPV4のみ。サブネットマスク等は入れない）
+<form action=index.php method=get>
+<input type=text name=in_ip value="{{ in_ip }}" size="15">
+<input type=submit name=submit value="検索">
+</form>
+<br>
+<br>
+{% if data_flg == "OK" %}
+<TABLE BORDER=0>
+	<TBODY>
+		<TR>
+			<TD COLSPAN=2 ALIGN=CENTER>検索結果（{{ in_ip }}）</TD>
+		</TR>
+		<TR>
+			<TD>IPアドレス</TD>
+			<TD>{{ in_ip }}</TD>
+		</TR>
+		<TR>
+			<TD>ホスト名</TD>
+			<TD>{{ hostname }}</TD>
+		</TR>
+		<TR>
+			<TD>ネットブロック</TD>
+			<TD>{{ netblock }}({{ kosu|number_format }}個のアドレス)</TD>
+		</TR>
+		<TR>
+			<TD>割り当てブロック</TD>
+			<TD>{{ ip }} - {{ kosu }} addresses</TD>
+		</TR>
+		<TR>
+			<TD>割り当て</TD>
+                        {% if wariate_year != 0 %}
+			    <TD>{{ wariate|upper }}/{{ wariate_year }} </TD>
+                        {% else %}
+			    <TD>{{ wariate|upper }}/不明 </TD>
+                        {% endif %}
+		</TR>
+		<TR>
+			<TD>国/地域</TD>
+			<TD>{{ country }}:{{ country_name }}</TD>
+		</TR>
+	</TBODY>
+</TABLE>
+<p>
+{{ whois_data|nl2br }}
+</p>
+{% endif %}
+{% if data_flg=="NG" %}
+    データがありません
+{% endif %}
+
+    </body>
+</html>
