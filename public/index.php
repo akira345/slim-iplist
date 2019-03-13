@@ -2,36 +2,43 @@
 require '../vendor/autoload.php';
 require '../config/db.php';
 require 'function.php';
+use \Slim\App;
+use Slim\Http\Request;
+use Slim\Http\Response;
 
 // Prepare app
-$app = new \Slim\Slim(array(
-    'templates.path' => '../templates',
-));
+$app = new App();
 
-// Create monolog logger and store logger in container as singleton 
+$container = $app->getContainer();
+
+// Create monolog logger and store logger in container as singleton
 // (Singleton resources retrieve the same log resource definition each time)
-$app->container->singleton('log', function () {
+$container['logger'] = function($c) {
     $log = new \Monolog\Logger('slim-skeleton');
     $log->pushHandler(new \Monolog\Handler\StreamHandler('../logs/app.log', \Monolog\Logger::DEBUG));
     return $log;
-});
+};
 
 // Prepare view
-$app->view(new \Slim\Views\Twig());
-$app->view->parserOptions = array(
-    'charset' => 'utf-8',
-    'cache' => realpath('../templates/cache'),
-    'auto_reload' => true,
-    'strict_variables' => false,
-    'autoescape' => true
-);
-$app->view->parserExtensions = array(new \Slim\Views\TwigExtension());
+$container['view'] = function ($container) {
+    $view = new \Slim\Views\Twig('../templates', [
+            'charset' => 'utf-8',
+            'cache' => realpath('../templates/cache'),
+            'auto_reload' => true,
+            'strict_variables' => false,
+            'autoescape' => true
+    ]);
+    $router = $container->get('router');
+    $uri = \Slim\Http\Uri::createFromEnvironment(new \Slim\Http\Environment($_SERVER));
+    $view->addExtension(new Slim\Views\TwigExtension($router,$uri));
 
+    return $view;
+};
 // Define routes
-$app->get('/', function () use ($app) {
+$app->get('/', function (Request $req, Response $res,$args = []){
     $render = array();
     // Get get
-    $in_ip = $app->request->get('in_ip');
+    $in_ip = $req->getParam('in_ip');
     $in_ip = gethostbyname($in_ip);
     if (filter_var($in_ip,FILTER_VALIDATE_IP,FILTER_FLAG_IPV4)){
         //ipv4
@@ -46,7 +53,7 @@ $app->get('/', function () use ($app) {
           $stmt -> bindParam(':ip',$in_ip,PDO::PARAM_STR);
           $stmt -> execute();
           $data_flg = "NG";
-                 $render = array(
+          $render = array(
                      "in_ip"   => $in_ip,
                      "data_flg" => $data_flg,
                      "hostname" => gethostbyaddr($in_ip),
@@ -86,16 +93,16 @@ $app->get('/', function () use ($app) {
              }
           }
         } catch(PDOException $e) {
-            $app->log->error($e -> getMessage());
+            $this->logger->error($e -> getMessage());
             echo $e -> getMessage();
         }
     }
     // Sample log message
-    $app->log->info("Top Area '/' route");
+    $this->logger->info("Top Area '/' route");
     // Render index view
-    $app->render('index.html',$render);
+    $this->view->render($res,'index.html',$render);
 });
-$app->get('/json', function () use ($app) {
+$app->get('/json', function (Request $req, Response $res,$args = []) {
        $render = array();
         //ipv4
        $sql = "SELECT lst.*,(select c.country_name from country c "
@@ -121,14 +128,17 @@ $app->get('/json', function () use ($app) {
              array_push($render,$netblock);
           }
         } catch(PDOException $e) {
-            $app->log->error($e -> getMessage());
+            $this->logger->error($e -> getMessage());
             echo $e -> getMessage();
         }
         // Sample log message
-        $app->log->info("JSON Area '/' route");
+        $this->logger->info("JSON Area '/' route");
         // Render index view
-        header('Content-Type: application/json; charset=utf-8');
-        echo json_encode(array('ip_block' => $render));
+        //header('Content-Type: application/json; charset=utf-8');
+        //echo json_encode(array('ip_block' => $render));
+        $res = $res->withJson(array('ip_block' => $render));
+        return $res;
 });
+
 // Run app
 $app->run();
