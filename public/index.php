@@ -1,6 +1,6 @@
 <?php
 require '../vendor/autoload.php';
-require 'db.php';
+require '../config/db.php';
 require 'function.php';
 
 // Prepare app
@@ -95,6 +95,40 @@ $app->get('/', function () use ($app) {
     // Render index view
     $app->render('index.html',$render);
 });
-
+$app->get('/json', function () use ($app) {
+       $render = array();
+        //ipv4
+       $sql = "SELECT lst.*,(select c.country_name from country c "
+            . "where lst.country = c.country_cd) country_name "
+            . "FROM iplist lst "
+            . "WHERE lst.country = 'JP'";
+        try{
+          $db = getDB();
+          $stmt = $db->prepare($sql);
+          $stmt -> execute();
+          while($row = $stmt -> fetch()){
+             $wariate = $row["wariate"];
+             $country = $row["country"];
+             $ip      = $row["ip"];
+             $kosu    = $row["kosu"];
+             $wariate_year = $row["wariate_year"];
+             $jyokyo  = $row["jyokyo"];
+             $netblock = $row["netblock"];
+             $netblock = fix_netblock($netblock);
+             $country_name = $row["country_name"];
+             $block = IPBlock::create($netblock);
+             //
+             array_push($render,$netblock);
+          }
+        } catch(PDOException $e) {
+            $app->log->error($e -> getMessage());
+            echo $e -> getMessage();
+        }
+        // Sample log message
+        $app->log->info("JSON Area '/' route");
+        // Render index view
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(array('ip_block' => $render));
+});
 // Run app
 $app->run();
