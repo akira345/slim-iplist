@@ -38,6 +38,7 @@ $container['view'] = function ($container) {
 $app->get('/', function (Request $req, Response $res,$args = []){
     $render = array();
     // Get get
+    $in_ip = $req->trim(getParam('in_ip'));
     $in_hostname = parse_url($in_ip, PHP_URL_HOST);
     if ($in_hostname){
         $in_ip = gethostbyname($in_hostname);
