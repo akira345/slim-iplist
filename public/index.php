@@ -38,7 +38,7 @@ $container['view'] = function ($container) {
 $app->get('/', function (Request $req, Response $res,$args = []){
     $render = array();
     // Get get
-    $in_ip = $req->getParam('in_ip');
+    $in_ip = trim($req->getParam('in_ip'));
     $in_ip = gethostbyname($in_ip);
     if (filter_var($in_ip,FILTER_VALIDATE_IP,FILTER_FLAG_IPV4)){
         //ipv4
