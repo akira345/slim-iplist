@@ -38,8 +38,12 @@ $container['view'] = function ($container) {
 $app->get('/', function (Request $req, Response $res,$args = []){
     $render = array();
     // Get get
-    $in_ip = trim($req->getParam('in_ip'));
-    $in_ip = gethostbyname($in_ip);
+    $in_hostname = parse_url($in_ip, PHP_URL_HOST);
+    if ($in_hostname){
+        $in_ip = gethostbyname($in_hostname);
+    }else{
+        $in_ip = gethostbyname($in_ip);
+    }
     if (filter_var($in_ip,FILTER_VALIDATE_IP,FILTER_FLAG_IPV4)){
         //ipv4
        $sql = "SELECT lst.*,(select c.country_name from country c "
