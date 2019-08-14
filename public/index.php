@@ -1,149 +1,76 @@
 <?php
-require '../vendor/autoload.php';
+declare(strict_types=1);
+
 require '../config/db.php';
-require 'function.php';
-use \Slim\App;
-use Slim\Http\Request;
-use Slim\Http\Response;
+require '../app/function.php';
 
-// Prepare app
-$app = new App();
+use App\Application\Handlers\HttpErrorHandler;
+use App\Application\Handlers\ShutdownHandler;
+use App\Application\ResponseEmitter\ResponseEmitter;
+use DI\ContainerBuilder;
+use Slim\Factory\AppFactory;
+use Slim\Factory\ServerRequestCreatorFactory;
 
-$container = $app->getContainer();
+require __DIR__ . '/../vendor/autoload.php';
 
-// Create monolog logger and store logger in container as singleton
-// (Singleton resources retrieve the same log resource definition each time)
-$container['logger'] = function($c) {
-    $log = new \Monolog\Logger('slim-skeleton');
-    $log->pushHandler(new \Monolog\Handler\StreamHandler('../logs/app.log', \Monolog\Logger::DEBUG));
-    return $log;
-};
+// Instantiate PHP-DI ContainerBuilder
+$containerBuilder = new ContainerBuilder();
 
-// Prepare view
-$container['view'] = function ($container) {
-    $view = new \Slim\Views\Twig('../templates', [
-            'charset' => 'utf-8',
-            'cache' => realpath('../templates/cache'),
-            'auto_reload' => true,
-            'strict_variables' => false,
-            'autoescape' => true
-    ]);
-    $router = $container->get('router');
-    $uri = \Slim\Http\Uri::createFromEnvironment(new \Slim\Http\Environment($_SERVER));
-    $view->addExtension(new Slim\Views\TwigExtension($router,$uri));
+if (true) { // Should be set to true in production
+	$containerBuilder->enableCompilation(__DIR__ . '/../var/cache');
+}
 
-    return $view;
-};
-// Define routes
-$app->get('/', function (Request $req, Response $res,$args = []){
-    $render = array();
-    // Get get
-    $in_ip = trim($req->getParam('in_ip'));
-    $in_hostname = parse_url($in_ip, PHP_URL_HOST);
-    if ($in_hostname){
-        $in_ip = gethostbyname($in_hostname);
-    }else{
-        $in_ip = gethostbyname($in_ip);
-    }
-    if (filter_var($in_ip,FILTER_VALIDATE_IP,FILTER_FLAG_IPV4)){
-        //ipv4
-       $sql = "SELECT lst.*,(select c.country_name from country c "
-            . "where lst.country = c.country_cd) country_name "
-            . "FROM iplist lst "
-            . "WHERE "
-            . "inet_aton(:ip) between inet_aton(lst.ip) and (inet_aton(lst.ip) + (lst.kosu -1))";
-        try{
-          $db = getDB();
-          $stmt = $db->prepare($sql);
-          $stmt -> bindParam(':ip',$in_ip,PDO::PARAM_STR);
-          $stmt -> execute();
-          $data_flg = "NG";
-          $render = array(
-                     "in_ip"   => $in_ip,
-                     "data_flg" => $data_flg,
-                     "hostname" => gethostbyaddr($in_ip),
-                     );
-          while($row = $stmt -> fetch()){
-             $wariate = $row["wariate"];
-             $country = $row["country"];
-             $ip      = $row["ip"];
-             $kosu    = $row["kosu"];
-             $wariate_year = $row["wariate_year"];
-             $jyokyo  = $row["jyokyo"];
-             $netblock = $row["netblock"];
-             $netblock = fix_netblock($netblock);
-             $country_name = $row["country_name"];
-             $block = IPBlock::create($netblock);
-             if ($block->contains($in_ip)){
-                 $data_flg = "OK";
-                 $whois_data = shell_exec("whois " . escapeshellcmd($in_ip));
-                 if ($wariate_year !=0){
-                     $wariate_year = date("Y/m/d",strtotime($wariate_year));
-                 }
-                 $render = array(
-                     "wariate" => $wariate,
-                     "country" => $country,
-                     "ip"      => $ip,
-                     "kosu"    => $kosu,
-                     "wariate_year" => $wariate_year,
-                     "jyokyo"  => $jyokyo,
-                     "netblock" => $netblock,
-                     "country_name" => $country_name,
-                     "in_ip"   => $in_ip,
-                     "data_flg" => $data_flg,
-                     "whois_data" => $whois_data,
-                     "hostname" => gethostbyaddr($in_ip),
-                     );
-                 break;
-             }
-          }
-        } catch(PDOException $e) {
-            $this->logger->error($e -> getMessage());
-            echo $e -> getMessage();
-        }
-    }
-    // Sample log message
-    $this->logger->info("Top Area '/' route");
-    // Render index view
-    $this->view->render($res,'index.html',$render);
-});
-$app->get('/json', function (Request $req, Response $res,$args = []) {
-       $render = array();
-        //ipv4
-       $sql = "SELECT lst.*,(select c.country_name from country c "
-            . "where lst.country = c.country_cd) country_name "
-            . "FROM iplist lst "
-            . "WHERE lst.country = 'JP'";
-        try{
-          $db = getDB();
-          $stmt = $db->prepare($sql);
-          $stmt -> execute();
-          while($row = $stmt -> fetch()){
-             $wariate = $row["wariate"];
-             $country = $row["country"];
-             $ip      = $row["ip"];
-             $kosu    = $row["kosu"];
-             $wariate_year = $row["wariate_year"];
-             $jyokyo  = $row["jyokyo"];
-             $netblock = $row["netblock"];
-             $netblock = fix_netblock($netblock);
-             $country_name = $row["country_name"];
-             $block = IPBlock::create($netblock);
-             //
-             array_push($render,$netblock);
-          }
-        } catch(PDOException $e) {
-            $this->logger->error($e -> getMessage());
-            echo $e -> getMessage();
-        }
-        // Sample log message
-        $this->logger->info("JSON Area '/' route");
-        // Render index view
-        //header('Content-Type: application/json; charset=utf-8');
-        //echo json_encode(array('ip_block' => $render));
-        $res = $res->withJson(array('ip_block' => $render));
-        return $res;
-});
+// Set up settings
+$settings = require __DIR__ . '/../app/settings.php';
+$settings($containerBuilder);
 
-// Run app
-$app->run();
+// Set up dependencies
+$dependencies = require __DIR__ . '/../app/dependencies.php';
+$dependencies($containerBuilder);
+
+// Set up repositories
+$repositories = require __DIR__ . '/../app/repositories.php';
+$repositories($containerBuilder);
+
+// Build PHP-DI Container instance
+$container = $containerBuilder->build();
+
+// Instantiate the app
+AppFactory::setContainer($container);
+$app = AppFactory::create();
+$callableResolver = $app->getCallableResolver();
+
+// Register middleware
+$middleware = require __DIR__ . '/../app/middleware.php';
+$middleware($app);
+
+// Register routes
+$routes = require __DIR__ . '/../app/routes.php';
+$routes($app);
+
+/** @var bool $displayErrorDetails */
+$displayErrorDetails = $container->get('settings')['displayErrorDetails'];
+
+// Create Request object from globals
+$serverRequestCreator = ServerRequestCreatorFactory::create();
+$request = $serverRequestCreator->createServerRequestFromGlobals();
+
+// Create Error Handler
+$responseFactory = $app->getResponseFactory();
+$errorHandler = new HttpErrorHandler($callableResolver, $responseFactory);
+
+// Create Shutdown Handler
+$shutdownHandler = new ShutdownHandler($request, $errorHandler, $displayErrorDetails);
+register_shutdown_function($shutdownHandler);
+
+// Add Routing Middleware
+$app->addRoutingMiddleware();
+
+// Add Error Middleware
+$errorMiddleware = $app->addErrorMiddleware($displayErrorDetails, false, false);
+$errorMiddleware->setDefaultErrorHandler($errorHandler);
+
+// Run App & Emit Response
+$response = $app->handle($request);
+$responseEmitter = new ResponseEmitter();
+$responseEmitter->emit($response);
