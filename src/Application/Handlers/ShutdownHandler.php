@@ -49,29 +49,31 @@ class ShutdownHandler
             $errorLine = $error['line'];
             $errorMessage = $error['message'];
             $errorType = $error['type'];
-            $message = 'An error while processing your request. Please try again later.';
 
+            switch ($errorType) {
+                case E_USER_ERROR:
+                    $message = "FATAL ERROR: {$errorMessage}. ";
+                    $message .= " on line {$errorLine} in file {$errorFile}.";
+                    break;
+
+                case E_USER_WARNING:
+                    //$message = "WARNING: {$errorMessage}";
+                    //break;
+                    return;
+
+                case E_USER_NOTICE:
+                    //$message = "NOTICE: {$errorMessage}";
+                    //break;
+                    return;
+                default:
+                    $message = "ERROR: {$errorMessage}";
+                    $message .= " on line {$errorLine} in file {$errorFile}.";
+                    break;
+            }
             if ($this->displayErrorDetails) {
-                switch ($errorType) {
-                    case E_USER_ERROR:
-                        $message = "FATAL ERROR: {$errorMessage}. ";
-                        $message .= " on line {$errorLine} in file {$errorFile}.";
-                        break;
-
-                    case E_USER_WARNING:
-                        //$message = "WARNING: {$errorMessage}";
-                        //break;
-                        return;
-
-                    case E_USER_NOTICE:
-                        //$message = "NOTICE: {$errorMessage}";
-                        //break;
-                        return;
-                    default:
-                        $message = "ERROR: {$errorMessage}";
-                        $message .= " on line {$errorLine} in file {$errorFile}.";
-                        break;
-                }
+                //
+            } else {
+                $message = 'An error while processing your request. Please try again later.';
             }
 
             $exception = new HttpInternalServerErrorException($this->request, $message);
