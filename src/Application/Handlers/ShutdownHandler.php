@@ -59,13 +59,14 @@ class ShutdownHandler
                         break;
 
                     case E_USER_WARNING:
-                        $message = "WARNING: {$errorMessage}";
-                        break;
+                        //$message = "WARNING: {$errorMessage}";
+                        //break;
+                        return;
 
                     case E_USER_NOTICE:
-                        $message = "NOTICE: {$errorMessage}";
-                        break;
-
+                        //$message = "NOTICE: {$errorMessage}";
+                        //break;
+                        return;
                     default:
                         $message = "ERROR: {$errorMessage}";
                         $message .= " on line {$errorLine} in file {$errorFile}.";
