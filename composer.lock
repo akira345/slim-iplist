@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "93f4cf9942d2c0a72837ea4dad797304",
+    "content-hash": "d58dd102df42267fccd1977616d420ad",
     "packages": [
         {
             "name": "fig/http-message-util",
@@ -96,9 +96,9 @@
             "authors": [
                 {
                     "name": "Jeremy Lindblom",
-                    "role": "Developer",
                     "email": "jeremeamia@gmail.com",
-                    "homepage": "https://github.com/jeremeamia"
+                    "homepage": "https://github.com/jeremeamia",
+                    "role": "Developer"
                 }
             ],
             "description": "Serialize Closure objects, including their context and binding",
@@ -778,16 +778,16 @@
         },
         {
             "name": "rlanvin/php-ip",
-            "version": "v2.0.0-rc1",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rlanvin/php-ip.git",
-                "reference": "d7a9e6511398ce3830d45606da8d972544956c19"
+                "reference": "4ace47ed75308ea44f54fa132959dcbf0ef24398"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rlanvin/php-ip/zipball/d7a9e6511398ce3830d45606da8d972544956c19",
-                "reference": "d7a9e6511398ce3830d45606da8d972544956c19",
+                "url": "https://api.github.com/repos/rlanvin/php-ip/zipball/4ace47ed75308ea44f54fa132959dcbf0ef24398",
+                "reference": "4ace47ed75308ea44f54fa132959dcbf0ef24398",
                 "shasum": ""
             },
             "require": {
@@ -814,7 +814,7 @@
                 "ipv4",
                 "ipv6"
             ],
-            "time": "2019-01-15T04:28:51+00:00"
+            "time": "2019-09-01T09:37:31+00:00"
         },
         {
             "name": "slim/psr7",
@@ -822,12 +822,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/slimphp/Slim-Psr7.git",
-                "reference": "99ad31f503584bc7c5a36cb0304120f1bce8983d"
+                "reference": "f27d67d13978c2d2f380b9762d822b693ff44c63"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/slimphp/Slim-Psr7/zipball/99ad31f503584bc7c5a36cb0304120f1bce8983d",
-                "reference": "99ad31f503584bc7c5a36cb0304120f1bce8983d",
+                "url": "https://api.github.com/repos/slimphp/Slim-Psr7/zipball/f27d67d13978c2d2f380b9762d822b693ff44c63",
+                "reference": "f27d67d13978c2d2f380b9762d822b693ff44c63",
                 "shasum": ""
             },
             "require": {
@@ -842,7 +842,7 @@
             },
             "require-dev": {
                 "ext-json": "*",
-                "http-interop/http-factory-tests": "^0.5.0",
+                "http-interop/http-factory-tests": "^0.6.0",
                 "php-http/psr7-integration-tests": "dev-master",
                 "phpstan/phpstan": "^0.10",
                 "phpunit/phpunit": "^6.0|^7.0",
@@ -887,7 +887,7 @@
                 "psr-7",
                 "psr7"
             ],
-            "time": "2019-08-18T16:50:29+00:00"
+            "time": "2019-08-29T15:16:56+00:00"
         },
         {
             "name": "slim/slim",
@@ -1334,7 +1334,6 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "slim/psr7": 20,
-        "rlanvin/php-ip": 5,
         "slim/twig-view": 10
     },
     "prefer-stable": false,
