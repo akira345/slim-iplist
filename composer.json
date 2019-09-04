@@ -24,7 +24,7 @@
         "slim/psr7": "dev-master",
         "slim/slim": "^4",
         "twig/twig": "2.*",
-        "rlanvin/php-ip": "2.0.0-rc1",
+        "rlanvin/php-ip": "2.0.0",
         "slim/twig-view": "3.0.0-beta"
     },
     "autoload": {
