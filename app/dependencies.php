@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use DI\ContainerBuilder;
@@ -7,6 +8,7 @@ use Monolog\Logger;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use Slim\Views\Twig;
+use Twig\Loader\FilesystemLoader;
 
 return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([
@@ -18,10 +20,19 @@ return function (ContainerBuilder $containerBuilder) {
             $log->pushHandler($handler);
             return $log;
         },
-        Twig::class => function(ContainerInterface $c){
+        Twig::class => function (ContainerInterface $c) {
             $settings = $c->get('settings');
             $viewSettings = $settings['view'];
-            $view = new Twig($viewSettings['path'], $viewSettings['settings']);
+            $loader = new FilesystemLoader();
+            $paths = [$viewSettings['path']];
+            foreach ($paths as $namespace => $path) {
+                if (is_string($namespace)) {
+                    $loader->setPaths($path, $namespace);
+                } else {
+                    $loader->addPath($path);
+                }
+            }
+            $view = new Twig($loader, $viewSettings['settings']);
             return $view;
         }
     ]);

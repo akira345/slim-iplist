@@ -7,5 +7,5 @@ use Slim\App;
 
 return function (App $app) {
      //バグで動かない
-    //   $app->add(TwigMiddleware::create($app));
+     //  $app->add(TwigMiddleware::create($app));
 };
