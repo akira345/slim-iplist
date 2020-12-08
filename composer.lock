@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "12e1c9e7a2d1cd881a4cf0da596ee442",
+    "content-hash": "536ddb83f9b684510a72553ff4b10c0c",
     "packages": [
         {
             "name": "fig/http-message-util",
@@ -96,9 +96,9 @@
             "authors": [
                 {
                     "name": "Jeremy Lindblom",
-                    "role": "Developer",
                     "email": "jeremeamia@gmail.com",
-                    "homepage": "https://github.com/jeremeamia"
+                    "homepage": "https://github.com/jeremeamia",
+                    "role": "Developer"
                 }
             ],
             "description": "Serialize Closure objects, including their context and binding",
@@ -112,6 +112,7 @@
                 "serialize",
                 "tokenizer"
             ],
+            "abandoned": "opis/closure",
             "time": "2018-03-21T22:21:57+00:00"
         },
         {
@@ -782,16 +783,16 @@
         },
         {
             "name": "rlanvin/php-ip",
-            "version": "v2.0.0",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rlanvin/php-ip.git",
-                "reference": "4ace47ed75308ea44f54fa132959dcbf0ef24398"
+                "reference": "1bea521987f3c7db5f4b9f17f321e90feaefad11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rlanvin/php-ip/zipball/4ace47ed75308ea44f54fa132959dcbf0ef24398",
-                "reference": "4ace47ed75308ea44f54fa132959dcbf0ef24398",
+                "url": "https://api.github.com/repos/rlanvin/php-ip/zipball/1bea521987f3c7db5f4b9f17f321e90feaefad11",
+                "reference": "1bea521987f3c7db5f4b9f17f321e90feaefad11",
                 "shasum": ""
             },
             "require": {
@@ -818,7 +819,7 @@
                 "ipv4",
                 "ipv6"
             ],
-            "time": "2019-09-01T09:37:31+00:00"
+            "time": "2020-10-31T12:31:56+00:00"
         },
         {
             "name": "slim/psr7",
@@ -1345,5 +1346,6 @@
         "ext-json": "*",
         "php": ">=7.1"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }
