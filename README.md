@@ -1,3 +1,3 @@
-PHP�̃t���[�����[�N�ł���ASlim Framework��iplist����蒼���܂����B
+PHPのフレームワークである、Slim Frameworkでiplistを作り直しました。
 
-���Ȃ������Ȃ̂ŁA��Ō���������
+かなりやっつけなので、後で見直すかも

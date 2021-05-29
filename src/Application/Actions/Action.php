@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Application\Actions;
@@ -45,7 +46,7 @@ abstract class Action
     /**
      * @param LoggerInterface $logger
      */
-    public function __construct(LoggerInterface $logger,Twig $view)
+    public function __construct(LoggerInterface $logger, Twig $view)
     {
         $this->logger = $logger;
         $this->view = $view;

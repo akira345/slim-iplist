@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Application\Actions\IpInfo;
@@ -8,13 +9,13 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 class ShowIpListJp extends IpInfoAction
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function action(): Response
-    {
-      $render = array();
-      $render = $this->ipInfoRepository->findJpSubnets();
-      return $this->respondWithData(array('ip_block' => $render));
-    }
+  /**
+   * {@inheritdoc}
+   */
+  protected function action(): Response
+  {
+    $render = array();
+    $render = $this->ipInfoRepository->findJpSubnets();
+    return $this->respondWithData(array('ip_block' => $render));
   }
+}
