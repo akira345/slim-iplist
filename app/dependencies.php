@@ -12,6 +12,7 @@ use Twig\Loader\FilesystemLoader;
 
 return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([
+        // monolog setting
         LoggerInterface::class => function (ContainerInterface $c) {
             $settings = $c->get('settings');
             $loggerSettings = $settings['logger'];
@@ -20,6 +21,7 @@ return function (ContainerBuilder $containerBuilder) {
             $log->pushHandler($handler);
             return $log;
         },
+        // twig setting
         Twig::class => function (ContainerInterface $c) {
             $settings = $c->get('settings');
             $viewSettings = $settings['view'];

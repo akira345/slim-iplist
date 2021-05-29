@@ -14,6 +14,7 @@ return function (ContainerBuilder $containerBuilder) {
                 'path' => '../logs/app.log',
                 'level' => Logger::DEBUG,
             ],
+            // twig setting
             'view' => [
                 'path' => '../templates',
                 'settings' => [

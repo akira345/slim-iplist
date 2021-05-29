@@ -8,8 +8,7 @@ use Slim\App;
 
 
 return function (App $app) {
-    $base = $_SERVER["BASE"];
-    $app->get($base . '/', ShowIpInfo::class);
-    $app->get($base . '/index.php', ShowIpInfo::class);
-    $app->get($base . '/json', ShowIpListJp::class);
+    $app->get('/', ShowIpInfo::class);
+    $app->get('/index.php', ShowIpInfo::class);
+    $app->get('/json', ShowIpListJp::class);
 };
