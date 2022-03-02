@@ -29,7 +29,7 @@
         "slim/psr7": "^1.5",
         "slim/slim": "^4.9",
         "slim/twig-view": "^3.3",
-        "rlanvin/php-ip": "2.1.0"
+        "rlanvin/php-ip": "3.0.0"
     },
     "require-dev": {
         "jangregor/phpstan-prophecy": "^1.0.0",
