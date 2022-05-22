@@ -7,13 +7,13 @@ use DI\ContainerBuilder;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\UidProcessor;
-use Monolog\Processor\MemoryUsageProcessor;
-use Monolog\Processor\WebProcessor;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 
 use Slim\Views\Twig;
 use Twig\Loader\FilesystemLoader;
+use Monolog\Processor\MemoryUsageProcessor;
+use Monolog\Processor\WebProcessor;
 
 return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([

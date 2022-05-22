@@ -28,7 +28,7 @@ return function (ContainerBuilder $containerBuilder) {
                         'cache' => realpath('../templates/cache'),
                         'auto_reload' => true,
                         'strict_variables' => false,
-                        'autoescape' => true
+                        'autoescape' => 'html'
                     ],
                 ],
             ]);
