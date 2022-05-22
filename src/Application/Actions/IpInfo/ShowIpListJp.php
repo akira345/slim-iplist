@@ -16,6 +16,7 @@ class ShowIpListJp extends IpInfoAction
   {
     $render = array();
     $render = $this->ipInfoRepository->findJpSubnets();
+    $this->logger->info("Generate IPlist for JP.");
     return $this->respondWithData(array('ip_block' => $render));
   }
 }

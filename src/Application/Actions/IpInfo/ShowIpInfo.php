@@ -17,7 +17,7 @@ class ShowIpInfo extends IpInfoAction
     $render = array();
     // Get get
     $query = $this->resolveQuery('in_ip');
-    $this->logger->debug("Search Query is " . $query);
+    $this->logger->info("Search Query is " . $query);
     if (!is_null($query)) {
       $in_ip = trim($query);
       //IPアドレスの箇所にURLが貼られた場合、ホスト名からIPアドレスを割り出す
@@ -30,7 +30,7 @@ class ShowIpInfo extends IpInfoAction
       $render = $this->ipInfoRepository->findIpInformation($in_ip);
     }
     // Sample log message
-    $this->logger->info("Top Area '/' route");
+    $this->logger->info("Action complate.");
     // Render index view
     return $this->view->render($this->response, 'index.html', $render);
   }

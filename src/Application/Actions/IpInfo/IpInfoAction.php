@@ -17,5 +17,6 @@ abstract class IpInfoAction extends Action
   {
     parent::__construct($logger, $view);
     $this->ipInfoRepository = $ipInfoRepository;
+    $this->logger->info("Start Top page.");
   }
 }

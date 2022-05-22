@@ -53,7 +53,7 @@ class DbIpInfoRepository implements IpInfoRepository
             $data_flg = "OK";
             $whois_data = shell_exec("whois " . escapeshellcmd($in_ip));
             if ($wariate_year != 0) {
-              $wariate_year = date("Y/m/d", strtotime($wariate_year));
+              $wariate_year = date("Y/m/d", strtotime(strval($wariate_year)));
             }
             $render = array(
               "wariate" => $wariate,
