@@ -24,6 +24,8 @@ abstract class Action
 
     protected $query;
 
+    protected $view;
+
     public function __construct(LoggerInterface $logger, Twig $view)
     {
         $this->logger = $logger;
