@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "354bbab1e4f24beaca4fe787f646d06d",
+    "content-hash": "89287c7328afec353120af4e2b71765f",
     "packages": [
         {
             "name": "fig/http-message-util",
@@ -1660,32 +1660,34 @@
         },
         {
             "name": "jangregor/phpstan-prophecy",
-            "version": "1.0.2",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Jan0707/phpstan-prophecy.git",
-                "reference": "5ee56c7db1d58f0578c82a35e3c1befe840e85a9"
+                "reference": "8937c0f084eefb928032b438f0f57ad5cba3dbdc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Jan0707/phpstan-prophecy/zipball/5ee56c7db1d58f0578c82a35e3c1befe840e85a9",
-                "reference": "5ee56c7db1d58f0578c82a35e3c1befe840e85a9",
+                "url": "https://api.github.com/repos/Jan0707/phpstan-prophecy/zipball/8937c0f084eefb928032b438f0f57ad5cba3dbdc",
+                "reference": "8937c0f084eefb928032b438f0f57ad5cba3dbdc",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1 || ^8.0",
-                "phpstan/phpstan": "^1.0.0"
+                "php": "^7.4 || ^8.0",
+                "phpstan/phpstan": "^2.0.0"
             },
             "conflict": {
-                "phpspec/prophecy": "<1.7.0 || >=2.0.0",
-                "phpunit/phpunit": "<6.0.0 || >=12.0.0"
+                "phpspec/prophecy": "<1.17.0 || >=2.0.0",
+                "phpspec/prophecy-phpunit": "<2.3.0 || >=3.0.0",
+                "phpunit/phpunit": "<9.1.0 || >=12.0.0"
             },
             "require-dev": {
                 "ergebnis/composer-normalize": "^2.1.1",
-                "ergebnis/license": "^1.0.0",
-                "ergebnis/php-cs-fixer-config": "~2.2.0",
+                "ergebnis/license": "^2.6.0",
+                "ergebnis/php-cs-fixer-config": "^4.0 || ^5.0 || ^6.0",
                 "phpspec/prophecy": "^1.7.0",
-                "phpunit/phpunit": "^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0"
+                "phpspec/prophecy-phpunit": "^2.3",
+                "phpunit/phpunit": "^9.1.0"
             },
             "type": "phpstan-extension",
             "extra": {
@@ -1713,9 +1715,9 @@
             "description": "Provides a phpstan/phpstan extension for phpspec/prophecy",
             "support": {
                 "issues": "https://github.com/Jan0707/phpstan-prophecy/issues",
-                "source": "https://github.com/Jan0707/phpstan-prophecy/tree/1.0.2"
+                "source": "https://github.com/Jan0707/phpstan-prophecy/tree/2.0.0"
             },
-            "time": "2024-04-03T08:15:54+00:00"
+            "time": "2024-11-21T13:41:50+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -2350,20 +2352,20 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.12.6",
+            "version": "2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "dc4d2f145a88ea7141ae698effd64d9df46527ae"
+                "reference": "46b4d3529b12178112d9008337beda0cc2a1a6b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/dc4d2f145a88ea7141ae698effd64d9df46527ae",
-                "reference": "dc4d2f145a88ea7141ae698effd64d9df46527ae",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/46b4d3529b12178112d9008337beda0cc2a1a6b4",
+                "reference": "46b4d3529b12178112d9008337beda0cc2a1a6b4",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2|^8.0"
+                "php": "^7.4|^8.0"
             },
             "conflict": {
                 "phpstan/phpstan-shim": "*"
@@ -2404,7 +2406,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-10-06T15:03:59+00:00"
+            "time": "2024-11-28T22:19:37+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
