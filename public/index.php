@@ -79,7 +79,7 @@ $app->addBodyParsingMiddleware();
 $errorMiddleware = $app->addErrorMiddleware($displayErrorDetails, $logError, $logErrorDetails);
 $errorMiddleware->setDefaultErrorHandler($errorHandler);
 // サブディレクトリで動作させるための設定
-$app->setBasePath("/~dosmania/labo/iplist");
+// $app->setBasePath("/~dosmania/labo/iplist");
 // Run App & Emit Response
 $response = $app->handle($request);
 $responseEmitter = new ResponseEmitter();
