@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4214bb5d4786d76b078abafbef5c62be",
+    "content-hash": "974784e9155e2f19a4149ac1f6ca2018",
     "packages": [
         {
             "name": "fig/http-message-util",
@@ -1660,31 +1660,31 @@
         },
         {
             "name": "jangregor/phpstan-prophecy",
-            "version": "2.0.0",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Jan0707/phpstan-prophecy.git",
-                "reference": "8937c0f084eefb928032b438f0f57ad5cba3dbdc"
+                "reference": "aebda94b6b1c39055d8f2227e879c07bac651550"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Jan0707/phpstan-prophecy/zipball/8937c0f084eefb928032b438f0f57ad5cba3dbdc",
-                "reference": "8937c0f084eefb928032b438f0f57ad5cba3dbdc",
+                "url": "https://api.github.com/repos/Jan0707/phpstan-prophecy/zipball/aebda94b6b1c39055d8f2227e879c07bac651550",
+                "reference": "aebda94b6b1c39055d8f2227e879c07bac651550",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.4 || ^8.0",
-                "phpstan/phpstan": "^2.0.0"
+                "phpstan/phpstan": "^2.1.5"
             },
             "conflict": {
                 "phpspec/prophecy": "<1.17.0 || >=2.0.0",
                 "phpspec/prophecy-phpunit": "<2.3.0 || >=3.0.0",
-                "phpunit/phpunit": "<9.1.0 || >=12.0.0"
+                "phpunit/phpunit": "<9.1.0 || >=13.0.0"
             },
             "require-dev": {
-                "ergebnis/composer-normalize": "^2.1.1",
+                "ergebnis/composer-normalize": "^2.47.0",
                 "ergebnis/license": "^2.6.0",
-                "ergebnis/php-cs-fixer-config": "^4.0 || ^5.0 || ^6.0",
+                "ergebnis/php-cs-fixer-config": "^6.46.0",
                 "phpspec/prophecy": "^1.7.0",
                 "phpspec/prophecy-phpunit": "^2.3",
                 "phpunit/phpunit": "^9.1.0"
@@ -1715,9 +1715,9 @@
             "description": "Provides a phpstan/phpstan extension for phpspec/prophecy",
             "support": {
                 "issues": "https://github.com/Jan0707/phpstan-prophecy/issues",
-                "source": "https://github.com/Jan0707/phpstan-prophecy/tree/2.0.0"
+                "source": "https://github.com/Jan0707/phpstan-prophecy/tree/2.2.0"
             },
-            "time": "2024-11-21T13:41:50+00:00"
+            "time": "2025-05-22T08:21:52+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -2352,16 +2352,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.0.3",
+            "version": "2.1.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "46b4d3529b12178112d9008337beda0cc2a1a6b4"
+                "reference": "89b5ef665716fa2a52ecd2633f21007a6a349053"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/46b4d3529b12178112d9008337beda0cc2a1a6b4",
-                "reference": "46b4d3529b12178112d9008337beda0cc2a1a6b4",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/89b5ef665716fa2a52ecd2633f21007a6a349053",
+                "reference": "89b5ef665716fa2a52ecd2633f21007a6a349053",
                 "shasum": ""
             },
             "require": {
@@ -2406,7 +2406,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-11-28T22:19:37+00:00"
+            "time": "2025-05-21T20:55:28+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
